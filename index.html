@@ -343,8 +343,8 @@
       <div class="step-gutter"><div class="step-num">2</div><div class="step-vline"></div></div>
       <div>
         <h3 data-i18n="step2_title">Install the iPhone app</h3>
-        <p data-i18n="step2_desc">Install ChitNow via TestFlight or build from source with Xcode. The Watch app installs automatically alongside it.</p>
-        <p style="margin-top:8px;font-size:12px;color:var(--muted)" data-i18n="step2_note">Building from source requires configuring your own Developer Team, Bundle ID, App Group, and Push Notification capability in Xcode.</p>
+        <p data-i18n="step2_desc">Build and install ChitNow with Xcode. The Watch app installs automatically alongside it.</p>
+        <p style="margin-top:8px;font-size:12px;color:var(--muted)" data-i18n="step2_note">Requires configuring your own Developer Team, Bundle ID, App Group, and Push Notification capability in Xcode.</p>
       </div>
     </div>
 
@@ -369,7 +369,7 @@
         <h3 data-i18n="step4_title">Wire the Codex hook <span class="opt-badge">Codex only</span></h3>
         <p data-i18n="step4_desc">Claude Code is wired automatically by <code>install.sh</code>. For Codex, add the following to <code>~/.codex/config.toml</code>, then re-trust in the Codex TUI (<code>/hooks</code>).</p>
         <div class="cmd-block" style="margin-top:12px">
-          <div class="cmd-row"><span class="cmd-ps" style="color:#505050">#</span><span class="cmd-txt" style="color:#606060">~/.codex/config.toml</span></div>
+          <div class="cmd-row"><span class="cmd-ps" style="color:#505050">#</span><span class="cmd-txt" style="color:#606060">~/.codex/config.toml — replace ~/thenow with your actual clone path</span></div>
           <div class="cmd-row"><span class="cmd-txt" style="color:#79d9a8">[[hooks.PermissionRequest]]<br>matcher = "^Bash$"<br>[[hooks.PermissionRequest.hooks]]<br>type = "command"<br>command = "~/thenow/broker/.venv/bin/python ~/.claude/scripts/thenow_hook.py"<br>timeout = 190<br>[features]<br>hooks = true</span></div>
         </div>
       </div>
@@ -492,8 +492,8 @@ const i18n = {
     step1_desc:"Run the installer — it sets up the broker, wires the Claude Code hook, and registers everything to auto-start on login.",
     step1_req:"Requires Python 3.11+. Creates a venv, installs deps, registers the broker as a launchd agent, and adds the hook to <code>~/.claude/settings.json</code>.",
     step2_title:"Install the iPhone app",
-    step2_desc:"Install ChitNow via TestFlight or build from source with Xcode. The Watch app installs automatically alongside it.",
-    step2_note:"Building from source requires configuring your own Developer Team, Bundle ID, App Group, and Push Notification capability in Xcode.",
+    step2_desc:"Build and install ChitNow with Xcode. The Watch app installs automatically alongside it.",
+    step2_note:"Requires configuring your own Developer Team, Bundle ID, App Group, and Push Notification capability in Xcode.",
     step3_title:"Pair your iPhone",
     step3_desc:"Open the pairing page on your Mac browser, then scan the QR code in the ChitNow iPhone app.",
     step3_warn_label:"Note:",
@@ -533,8 +533,8 @@ const i18n = {
     step1_desc:"运行安装脚本 — 它会配置 Broker 服务、接入 Claude Code Hook，并设置开机自启。",
     step1_req:"需要 Python 3.11+。脚本会创建 venv、安装依赖、注册 launchd agent，并将 Hook 写入 <code>~/.claude/settings.json</code>。",
     step2_title:"安装 iPhone 应用",
-    step2_desc:"通过 TestFlight 安装 ChitNow，或使用 Xcode 从源码构建。Watch 应用会自动随之安装。",
-    step2_note:"从源码构建需要在 Xcode 中配置你自己的 Developer Team、Bundle ID、App Group 和推送通知权限。",
+    step2_desc:"使用 Xcode 构建并安装 ChitNow，Watch 应用会自动随之安装。",
+    step2_note:"需要在 Xcode 中配置你自己的 Developer Team、Bundle ID、App Group 和推送通知权限。",
     step3_title:"配对 iPhone",
     step3_desc:"在 Mac 浏览器中打开配对页面，然后在 ChitNow iPhone 应用中扫描二维码。",
     step3_warn_label:"注意：",
@@ -574,8 +574,8 @@ const i18n = {
     step1_desc:"インストーラーを実行 — ブローカーの設定、Claude Code フックの接続、ログイン時の自動起動をすべて行います。",
     step1_req:"Python 3.11+ が必要です。venv を作成し、依存関係をインストールし、launchd エージェントを登録し、<code>~/.claude/settings.json</code> にフックを追加します。",
     step2_title:"iPhone アプリをインストール",
-    step2_desc:"TestFlight または Xcode からビルドして ChitNow をインストールします。Watch アプリは自動的にインストールされます。",
-    step2_note:"ソースからビルドする場合、Xcode で Developer Team、Bundle ID、App Group、プッシュ通知機能を自分で設定する必要があります。",
+    step2_desc:"Xcode でビルドして ChitNow をインストールします。Watch アプリは自動的にインストールされます。",
+    step2_note:"Xcode で Developer Team、Bundle ID、App Group、プッシュ通知機能を自分で設定する必要があります。",
     step3_title:"iPhone をペアリング",
     step3_desc:"Mac のブラウザでペアリングページを開き、ChitNow iPhone アプリで QR コードをスキャンします。",
     step3_warn_label:"注意：",
