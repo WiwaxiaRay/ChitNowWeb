@@ -168,6 +168,29 @@
     .step a { color: var(--blue); text-decoration: none; }
     .step a:hover { text-decoration: underline; }
 
+    .opt-badge {
+      font-size: 10px; padding: 2px 7px; border-radius: 3px;
+      border: 1px solid #333; color: #606060;
+      margin-left: 8px; letter-spacing: .5px; vertical-align: middle;
+      font-weight: 400;
+    }
+
+    .notes-block {
+      margin-top: 48px; border: 1px solid var(--border); border-radius: 10px;
+      overflow: hidden; margin-bottom: 0;
+    }
+    .notes-head {
+      padding: 12px 20px; background: #0c0c0c; border-bottom: 1px solid #1e1e1e;
+      font-size: 10px; letter-spacing: 2.5px; text-transform: uppercase; color: #505050;
+    }
+    .note-row {
+      display: flex; align-items: flex-start; gap: 12px;
+      padding: 13px 20px; border-bottom: 1px solid #181818;
+      font-size: 13px; color: var(--muted); line-height: 1.65;
+    }
+    .note-row:last-child { border-bottom: none; }
+    .note-icon { flex-shrink: 0; font-size: 14px; padding-top: 1px; }
+
     .cmd-block {
       margin-top: 14px; background: #090909; border: 1px solid #222;
       border-radius: 8px; padding: 14px 18px;
@@ -307,12 +330,12 @@
       <div class="step-gutter"><div class="step-num">1</div><div class="step-vline"></div></div>
       <div>
         <h3 data-i18n="step1_title">Install the Mac Helper</h3>
-        <p data-i18n="step1_desc">Clone the repo and start the broker. It runs as a background service and auto-starts on login.</p>
+        <p data-i18n="step1_desc">Run the installer — it sets up the broker, wires the Claude Code hook, and registers everything to auto-start on login.</p>
         <div class="cmd-block">
-          <div class="cmd-row"><span class="cmd-ps">$</span><span class="cmd-txt">git clone https://github.com/WiwaxiaRay/thenow</span></div>
-          <div class="cmd-row"><span class="cmd-ps">$</span><span class="cmd-txt">cd thenow/broker &amp;&amp; python3 -m venv .venv &amp;&amp; .venv/bin/pip install -r requirements.txt</span></div>
-          <div class="cmd-row"><span class="cmd-ps">$</span><span class="cmd-txt">launchctl load ~/Library/LaunchAgents/com.wangyang.thenow-broker.plist</span></div>
+          <div class="cmd-row"><span class="cmd-ps">$</span><span class="cmd-txt">git clone https://github.com/WiwaxiaRay/thenow &amp;&amp; cd thenow</span></div>
+          <div class="cmd-row"><span class="cmd-ps">$</span><span class="cmd-txt">bash install.sh</span></div>
         </div>
+        <p style="margin-top:10px;font-size:12px;color:var(--muted)" data-i18n="step1_req">Requires Python 3.11+. Creates a venv, installs deps, registers the broker as a launchd agent, and adds the hook to <code>~/.claude/settings.json</code>.</p>
       </div>
     </div>
 
@@ -320,7 +343,8 @@
       <div class="step-gutter"><div class="step-num">2</div><div class="step-vline"></div></div>
       <div>
         <h3 data-i18n="step2_title">Install the iPhone app</h3>
-        <p data-i18n="step2_desc">Download ChitNow from TestFlight or install via Xcode. The Watch app installs automatically alongside it.</p>
+        <p data-i18n="step2_desc">Install ChitNow via TestFlight or build from source with Xcode. The Watch app installs automatically alongside it.</p>
+        <p style="margin-top:8px;font-size:12px;color:var(--muted)" data-i18n="step2_note">Building from source requires configuring your own Developer Team, Bundle ID, App Group, and Push Notification capability in Xcode.</p>
       </div>
     </div>
 
@@ -334,20 +358,48 @@
         </div>
         <p style="margin-top:10px;font-size:12px;color:var(--muted)">
           <strong style="color:var(--amber)" data-i18n="step3_warn_label">Note:</strong>
-          <span data-i18n="step3_warn_desc"> Your browser will show a security warning for the self-signed certificate. Click <em>Advanced → Proceed to localhost</em> (Chrome) or <em>Show Details → visit this website</em> (Safari). This is expected.</span>
+          <span data-i18n="step3_warn_desc"> Your browser will show a certificate warning — this is expected. The cert is generated locally on your Mac. Click <em>Advanced → Proceed to localhost</em> (Chrome) or <em>Show Details → visit this website</em> (Safari).</span>
         </p>
       </div>
     </div>
 
     <div class="step">
-      <div class="step-gutter"><div class="step-num">4</div></div>
+      <div class="step-gutter"><div class="step-num">4</div><div class="step-vline"></div></div>
       <div>
-        <h3 data-i18n="step4_title">Wire up the hook</h3>
-        <p data-i18n="step4_desc"><strong>Claude Code</strong> — the hook is configured automatically via <code>~/.claude/settings.json</code>.<br><strong>Codex</strong> — add the hook to <code>~/.codex/config.toml</code> and re-trust it in the Codex TUI.</p>
-        <p style="margin-top:10px;font-size:13px" data-i18n="step4_readme">See the <a href="https://github.com/WiwaxiaRay/thenow#hook-wiring">README</a> for exact config snippets.</p>
+        <h3 data-i18n="step4_title">Wire the Codex hook <span class="opt-badge">Codex only</span></h3>
+        <p data-i18n="step4_desc">Claude Code is wired automatically by <code>install.sh</code>. For Codex, add the following to <code>~/.codex/config.toml</code>, then re-trust in the Codex TUI (<code>/hooks</code>).</p>
+        <div class="cmd-block" style="margin-top:12px">
+          <div class="cmd-row"><span class="cmd-ps" style="color:#505050">#</span><span class="cmd-txt" style="color:#606060">~/.codex/config.toml</span></div>
+          <div class="cmd-row"><span class="cmd-txt" style="color:#79d9a8">[[hooks.PermissionRequest]]<br>matcher = "^Bash$"<br>[[hooks.PermissionRequest.hooks]]<br>type = "command"<br>command = "~/thenow/broker/.venv/bin/python ~/.claude/scripts/thenow_hook.py"<br>timeout = 190<br>[features]<br>hooks = true</span></div>
+        </div>
       </div>
     </div>
 
+    <div class="step">
+      <div class="step-gutter"><div class="step-num">5</div></div>
+      <div>
+        <h3 data-i18n="step5_title">Install codexbar <span class="opt-badge" data-i18n="badge_optional">Optional</span></h3>
+        <p data-i18n="step5_desc">For token usage, daily cost, and quota rings on the Watch, install <a href="https://github.com/steipete/codexbar">codexbar</a> and keep it running on your Mac. ChitNow reads its local cache files. The approval system works fully without it.</p>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- NOTES -->
+  <div class="notes-block">
+    <div class="notes-head">// notes</div>
+    <div class="note-row">
+      <span class="note-icon">📡</span>
+      <span data-i18n="note_lan">LAN only. Mac, iPhone, and Watch must be on the same Wi-Fi network. Switching networks or a VPN may require re-pairing.</span>
+    </div>
+    <div class="note-row">
+      <span class="note-icon">🔔</span>
+      <span data-i18n="note_apns">Instant push notifications require configuring your own Apple Developer account (APNs key, Team ID, Bundle ID). Without this, the Watch polls every 5 seconds — approvals arrive within 5s but without instant vibration.</span>
+    </div>
+    <div class="note-row">
+      <span class="note-icon">🔒</span>
+      <span data-i18n="note_privacy">The broker and all decisions are fully local. If APNs is configured, the command title and summary pass through Apple's APNs servers for push delivery.</span>
+    </div>
   </div>
 
   <!-- CTA -->
@@ -425,6 +477,7 @@ const i18n = {
     hero_h1:"Approve AI agent actions<br>from your <em>Apple Watch</em>",
     hero_p:"When Claude Code or Codex wants to run a high-risk command, ChitNow pauses and waits for you to approve or deny — right on your wrist.",
     badge_local:"Local-first",
+    badge_optional:"Optional",
     section_how:"How it works",
     flow1_title:"Agent runs a risky command",
     flow1_desc:"rm -rf, git push --force, sudo, etc. — the hook intercepts before execution.",
@@ -432,20 +485,26 @@ const i18n = {
     flow2_desc:"A notification appears with the full command. Tap to see details inline.",
     flow3_title:"You approve or deny",
     flow3_desc:"One tap on the Watch. The agent proceeds or stops immediately. No unlock required.",
-    flow4_title:"Fully local — nothing leaves your Mac",
-    flow4_desc:"The broker runs on your machine. APNs delivers the push; no cloud server stores your commands.",
+    flow4_title:"Fully local — decisions stay on your Mac",
+    flow4_desc:"The broker runs on your machine. No cloud server stores your commands or decisions.",
     section_setup:"Setup",
     step1_title:"Install the Mac Helper",
-    step1_desc:"Clone the repo and start the broker. It runs as a background service and auto-starts on login.",
+    step1_desc:"Run the installer — it sets up the broker, wires the Claude Code hook, and registers everything to auto-start on login.",
+    step1_req:"Requires Python 3.11+. Creates a venv, installs deps, registers the broker as a launchd agent, and adds the hook to <code>~/.claude/settings.json</code>.",
     step2_title:"Install the iPhone app",
-    step2_desc:"Download ChitNow from TestFlight or install via Xcode. The Watch app installs automatically alongside it.",
+    step2_desc:"Install ChitNow via TestFlight or build from source with Xcode. The Watch app installs automatically alongside it.",
+    step2_note:"Building from source requires configuring your own Developer Team, Bundle ID, App Group, and Push Notification capability in Xcode.",
     step3_title:"Pair your iPhone",
     step3_desc:"Open the pairing page on your Mac browser, then scan the QR code in the ChitNow iPhone app.",
     step3_warn_label:"Note:",
-    step3_warn_desc:" Your browser will show a security warning for the self-signed certificate. Click <em>Advanced → Proceed to localhost</em> (Chrome) or <em>Show Details → visit this website</em> (Safari). This is expected — the certificate is generated locally on your Mac.",
-    step4_title:"Wire up the hook",
-    step4_desc:"<strong>Claude Code</strong> — the hook is configured automatically via <code>~/.claude/settings.json</code>.<br><strong>Codex</strong> — add the hook to <code>~/.codex/config.toml</code> and re-trust it in the Codex TUI.",
-    step4_readme:"See the <a href=\"https://github.com/WiwaxiaRay/thenow#hook-wiring\">README</a> for exact config snippets.",
+    step3_warn_desc:" Your browser will show a certificate warning — this is expected. The cert is generated locally on your Mac. Click <em>Advanced → Proceed to localhost</em> (Chrome) or <em>Show Details → visit this website</em> (Safari).",
+    step4_title:"Wire the Codex hook",
+    step4_desc:"Claude Code is wired automatically by <code>install.sh</code>. For Codex, add the following to <code>~/.codex/config.toml</code>, then re-trust in the Codex TUI (<code>/hooks</code>).",
+    step5_title:"Install codexbar",
+    step5_desc:"For token usage, daily cost, and quota rings on the Watch, install <a href=\"https://github.com/steipete/codexbar\">codexbar</a> and keep it running on your Mac. ChitNow reads its local cache files. The approval system works fully without it.",
+    note_lan:"LAN only. Mac, iPhone, and Watch must be on the same Wi-Fi. Switching networks or using a VPN may require re-pairing.",
+    note_apns:"Instant push notifications require configuring your own Apple Developer account (APNs key, Team ID, Bundle ID). Without this, the Watch polls every 5 seconds — approvals still arrive, just without instant vibration.",
+    note_privacy:"The broker and all decisions are fully local. If APNs is configured, the command title and summary pass through Apple's APNs servers for push delivery.",
     cta_title:"Ready to pair?",
     cta_desc:"Make sure the Mac Helper is running, then open the pairing page.",
     cta_btn:"open https://localhost:8000/pair",
@@ -459,6 +518,7 @@ const i18n = {
     hero_h1:"掌控 AI 代理的每一步<br>审批就在你的 <em>Apple Watch</em>",
     hero_p:"当 Claude Code 或 Codex 想执行高风险命令时，ChitNow 会暂停并等待你在手腕上批准或拒绝。",
     badge_local:"本地优先",
+    badge_optional:"可选",
     section_how:"工作原理",
     flow1_title:"AI 代理执行高风险命令",
     flow1_desc:"rm -rf、git push --force、sudo 等 — Hook 在执行前拦截。",
@@ -466,20 +526,26 @@ const i18n = {
     flow2_desc:"通知出现并显示完整命令，轻触即可查看详情。",
     flow3_title:"你批准或拒绝",
     flow3_desc:"在手表上轻点一下，代理立即继续或停止，无需解锁手机。",
-    flow4_title:"完全本地 — 数据不离开你的 Mac",
-    flow4_desc:"Broker 运行在你的机器上，APNs 负责推送，没有云服务器存储你的命令。",
+    flow4_title:"完全本地 — 决策不离开你的 Mac",
+    flow4_desc:"Broker 运行在你的机器上，没有云服务器存储你的命令或决策。",
     section_setup:"安装步骤",
     step1_title:"安装 Mac Helper",
-    step1_desc:"克隆仓库并启动 Broker，它作为后台服务运行并随登录自启。",
+    step1_desc:"运行安装脚本 — 它会配置 Broker 服务、接入 Claude Code Hook，并设置开机自启。",
+    step1_req:"需要 Python 3.11+。脚本会创建 venv、安装依赖、注册 launchd agent，并将 Hook 写入 <code>~/.claude/settings.json</code>。",
     step2_title:"安装 iPhone 应用",
-    step2_desc:"通过 TestFlight 或 Xcode 安装 ChitNow，Watch 应用会自动随之安装。",
+    step2_desc:"通过 TestFlight 安装 ChitNow，或使用 Xcode 从源码构建。Watch 应用会自动随之安装。",
+    step2_note:"从源码构建需要在 Xcode 中配置你自己的 Developer Team、Bundle ID、App Group 和推送通知权限。",
     step3_title:"配对 iPhone",
     step3_desc:"在 Mac 浏览器中打开配对页面，然后在 ChitNow iPhone 应用中扫描二维码。",
     step3_warn_label:"注意：",
-    step3_warn_desc:" 浏览器会对自签名证书显示安全警告，点击<em>高级 → 继续访问 localhost</em>（Chrome）或<em>显示详情 → 访问此网站</em>（Safari）即可，证书在你的 Mac 本地生成。",
-    step4_title:"接入 Hook",
-    step4_desc:"<strong>Claude Code</strong> — Hook 通过 <code>~/.claude/settings.json</code> 自动配置。<br><strong>Codex</strong> — 在 <code>~/.codex/config.toml</code> 中添加 Hook 并在 Codex TUI 中重新信任。",
-    step4_readme:"详细配置请参见 <a href=\"https://github.com/WiwaxiaRay/thenow#hook-wiring\">README</a>。",
+    step3_warn_desc:" 浏览器会显示证书警告 — 这是正常现象，证书在你的 Mac 本地生成。点击<em>高级 → 继续访问 localhost</em>（Chrome）或<em>显示详情 → 访问此网站</em>（Safari）即可。",
+    step4_title:"接入 Codex Hook",
+    step4_desc:"Claude Code 已由 <code>install.sh</code> 自动配置。如果使用 Codex，请将以下内容添加到 <code>~/.codex/config.toml</code>，然后在 Codex TUI（<code>/hooks</code>）中重新信任。",
+    step5_title:"安装 codexbar",
+    step5_desc:"如需在 Watch 上显示 Token 用量、每日费用和配额环，请安装 <a href=\"https://github.com/steipete/codexbar\">codexbar</a> 并保持其在 Mac 上运行。ChitNow 读取其本地缓存文件。审批功能不依赖 codexbar，可完整运行。",
+    note_lan:"仅限局域网。Mac、iPhone 和 Watch 必须在同一 Wi-Fi 网络。切换网络或使用 VPN 后可能需要重新配对。",
+    note_apns:"即时推送通知需要配置你自己的 Apple Developer 账户（APNs Key、Team ID、Bundle ID）。未配置时 Watch 每 5 秒轮询一次 — 审批仍能正常送达，但不会有即时震动。",
+    note_privacy:"Broker 和所有决策完全本地运行。如果配置了 APNs，命令标题和摘要会经由 Apple APNs 服务器传递用于推送。",
     cta_title:"准备配对？",
     cta_desc:"确认 Mac Helper 正在运行，然后打开配对页面。",
     cta_btn:"open https://localhost:8000/pair",
@@ -493,6 +559,7 @@ const i18n = {
     hero_h1:"AIエージェントの操作を制御<br><em>Apple Watch</em> からワンタップで",
     hero_p:"Claude Code や Codex が高リスクのコマンドを実行しようとすると、ChitNow が一時停止し、手首での承認または拒否を待ちます。",
     badge_local:"ローカル優先",
+    badge_optional:"オプション",
     section_how:"仕組み",
     flow1_title:"エージェントが危険なコマンドを実行",
     flow1_desc:"rm -rf、git push --force、sudo など — フックが実行前にインターセプトします。",
@@ -500,20 +567,26 @@ const i18n = {
     flow2_desc:"コマンド全文を含む通知が表示されます。タップして詳細を確認。",
     flow3_title:"承認または拒否",
     flow3_desc:"Watch を一度タップするだけ。エージェントはすぐに続行または停止します。ロック解除不要。",
-    flow4_title:"完全ローカル — データは Mac を離れない",
-    flow4_desc:"ブローカーはあなたのマシンで動作します。APNs がプッシュを配信し、クラウドサーバーはコマンドを保存しません。",
+    flow4_title:"完全ローカル — 判断は Mac に留まる",
+    flow4_desc:"ブローカーはあなたのマシンで動作します。コマンドや判断をクラウドに保存しません。",
     section_setup:"セットアップ",
     step1_title:"Mac Helper をインストール",
-    step1_desc:"リポジトリをクローンしてブローカーを起動します。ログイン時に自動起動するバックグラウンドサービスとして動作します。",
+    step1_desc:"インストーラーを実行 — ブローカーの設定、Claude Code フックの接続、ログイン時の自動起動をすべて行います。",
+    step1_req:"Python 3.11+ が必要です。venv を作成し、依存関係をインストールし、launchd エージェントを登録し、<code>~/.claude/settings.json</code> にフックを追加します。",
     step2_title:"iPhone アプリをインストール",
-    step2_desc:"TestFlight または Xcode から ChitNow をインストールします。Watch アプリは自動的にインストールされます。",
+    step2_desc:"TestFlight または Xcode からビルドして ChitNow をインストールします。Watch アプリは自動的にインストールされます。",
+    step2_note:"ソースからビルドする場合、Xcode で Developer Team、Bundle ID、App Group、プッシュ通知機能を自分で設定する必要があります。",
     step3_title:"iPhone をペアリング",
     step3_desc:"Mac のブラウザでペアリングページを開き、ChitNow iPhone アプリで QR コードをスキャンします。",
     step3_warn_label:"注意：",
-    step3_warn_desc:" ブラウザは自己署名証明書に対してセキュリティ警告を表示します。<em>詳細設定 → localhost にアクセスする</em>（Chrome）または<em>詳細を表示 → このウェブサイトを訪問</em>（Safari）をクリックしてください。",
-    step4_title:"フックを設定",
-    step4_desc:"<strong>Claude Code</strong> — フックは <code>~/.claude/settings.json</code> で自動設定されます。<br><strong>Codex</strong> — <code>~/.codex/config.toml</code> にフックを追加し、Codex TUI で再信頼してください。",
-    step4_readme:"詳細な設定スニペットは <a href=\"https://github.com/WiwaxiaRay/thenow#hook-wiring\">README</a> を参照してください。",
+    step3_warn_desc:" ブラウザは証明書の警告を表示します — 証明書は Mac でローカルに生成されるため正常です。<em>詳細設定 → localhost にアクセスする</em>（Chrome）または<em>詳細を表示 → このウェブサイトを訪問</em>（Safari）をクリックしてください。",
+    step4_title:"Codex フックを設定",
+    step4_desc:"Claude Code は <code>install.sh</code> によって自動設定されます。Codex の場合は以下を <code>~/.codex/config.toml</code> に追加し、Codex TUI (<code>/hooks</code>) で再信頼してください。",
+    step5_title:"codexbar をインストール",
+    step5_desc:"Watch でトークン使用量、日次コスト、クォータリングを表示するには、<a href=\"https://github.com/steipete/codexbar\">codexbar</a> をインストールして Mac で起動し続けてください。ChitNow はそのローカルキャッシュを読み取ります。承認機能は codexbar なしでも完全に動作します。",
+    note_lan:"LAN のみ対応。Mac・iPhone・Watch は同じ Wi-Fi ネットワーク上にある必要があります。ネットワーク切り替えや VPN 使用後は再ペアリングが必要になる場合があります。",
+    note_apns:"即時プッシュ通知には Apple Developer アカウントの設定（APNs キー、Team ID、Bundle ID）が必要です。未設定の場合、Watch は 5 秒ごとにポーリングします — 承認は届きますが即時バイブレーションはありません。",
+    note_privacy:"ブローカーとすべての判断は完全にローカルで動作します。APNs を設定した場合、コマンドのタイトルとサマリーはプッシュ配信のため Apple の APNs サーバーを経由します。",
     cta_title:"ペアリングの準備ができましたか？",
     cta_desc:"Mac Helper が動作していることを確認してから、ペアリングページを開いてください。",
     cta_btn:"open https://localhost:8000/pair",
