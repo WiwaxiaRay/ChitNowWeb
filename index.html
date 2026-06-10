@@ -26,42 +26,37 @@
       -webkit-font-smoothing: antialiased;
     }
 
-    /* ── Layout ──────────────────────────────────────────────── */
     .container { max-width: 680px; margin: 0 auto; padding: 0 24px; }
 
-    /* ── Nav ─────────────────────────────────────────────────── */
     nav {
       display: flex; align-items: center; justify-content: space-between;
       padding: 20px 0; border-bottom: 1px solid var(--border);
     }
     .logo { font-size: 17px; font-weight: 600; letter-spacing: -.3px; }
     .logo span { color: var(--accent); }
+    .nav-right { display: flex; align-items: center; gap: 16px; }
     nav a { color: var(--muted); font-size: 14px; text-decoration: none; }
     nav a:hover { color: var(--text); }
 
-    /* ── Hero ────────────────────────────────────────────────── */
+    .lang-switcher { display: flex; gap: 2px; }
+    .lang-btn {
+      background: none; border: 1px solid var(--border); color: var(--muted);
+      font-size: 12px; padding: 3px 9px; border-radius: 6px; cursor: pointer;
+      transition: all .15s;
+    }
+    .lang-btn:hover { color: var(--text); border-color: #555; }
+    .lang-btn.active { color: var(--accent); border-color: var(--accent); }
+
     .hero { padding: 72px 0 56px; text-align: center; }
     .hero h1 {
-      font-size: clamp(28px, 5vw, 42px);
-      font-weight: 700;
-      letter-spacing: -.5px;
-      line-height: 1.2;
-      margin-bottom: 16px;
+      font-size: clamp(28px, 5vw, 42px); font-weight: 700;
+      letter-spacing: -.5px; line-height: 1.2; margin-bottom: 16px;
     }
     .hero h1 em { font-style: normal; color: var(--accent); }
-    .hero p {
-      font-size: 17px; color: var(--muted); max-width: 480px; margin: 0 auto 36px;
-    }
-    .badge-row {
-      display: flex; gap: 8px; justify-content: center; flex-wrap: wrap;
-      margin-bottom: 40px;
-    }
-    .badge {
-      font-size: 12px; padding: 4px 10px; border-radius: 20px;
-      border: 1px solid var(--border); color: var(--muted);
-    }
+    .hero p { font-size: 17px; color: var(--muted); max-width: 480px; margin: 0 auto 36px; }
+    .badge-row { display: flex; gap: 8px; justify-content: center; flex-wrap: wrap; margin-bottom: 40px; }
+    .badge { font-size: 12px; padding: 4px 10px; border-radius: 20px; border: 1px solid var(--border); color: var(--muted); }
 
-    /* ── How it works ────────────────────────────────────────── */
     .section-label {
       font-size: 11px; letter-spacing: 1px; text-transform: uppercase;
       color: var(--muted); margin-bottom: 20px;
@@ -71,21 +66,14 @@
       border: 1px solid var(--border); border-radius: 12px; overflow: hidden;
       margin-bottom: 64px;
     }
-    .flow-row {
-      display: flex; align-items: flex-start; gap: 16px;
-      padding: 18px 20px; background: var(--card);
-    }
+    .flow-row { display: flex; align-items: flex-start; gap: 16px; padding: 18px 20px; background: var(--card); }
     .flow-row + .flow-row { border-top: 1px solid var(--border); }
     .flow-icon { font-size: 22px; min-width: 30px; padding-top: 2px; }
     .flow-text strong { font-size: 15px; display: block; margin-bottom: 2px; }
     .flow-text span { font-size: 13px; color: var(--muted); }
 
-    /* ── Setup steps ─────────────────────────────────────────── */
     .steps { margin-bottom: 64px; }
-    .step {
-      display: flex; gap: 20px; padding: 24px 0;
-      border-bottom: 1px solid var(--border);
-    }
+    .step { display: flex; gap: 20px; padding: 24px 0; border-bottom: 1px solid var(--border); }
     .step:last-child { border-bottom: none; }
     .step-num {
       width: 28px; height: 28px; border-radius: 50%;
@@ -104,7 +92,6 @@
     .step a { color: var(--blue); text-decoration: none; }
     .step a:hover { text-decoration: underline; }
 
-    /* ── CTA block ───────────────────────────────────────────── */
     .cta-block {
       background: var(--card); border: 1px solid var(--border);
       border-radius: 14px; padding: 28px; margin-bottom: 64px; text-align: center;
@@ -112,94 +99,89 @@
     .cta-block h2 { font-size: 18px; margin-bottom: 8px; }
     .cta-block p  { font-size: 14px; color: var(--muted); margin-bottom: 20px; }
     .btn-primary {
-      display: inline-block;
-      background: var(--accent); color: #000;
-      font-weight: 600; font-size: 15px;
-      padding: 11px 28px; border-radius: 10px;
-      text-decoration: none;
-      transition: opacity .15s;
+      display: inline-block; background: var(--accent); color: #000;
+      font-weight: 600; font-size: 15px; padding: 11px 28px; border-radius: 10px;
+      text-decoration: none; transition: opacity .15s;
     }
     .btn-primary:hover { opacity: .85; }
-    .cert-note {
-      margin-top: 14px; font-size: 12px; color: var(--muted);
-    }
+    .cert-note { margin-top: 14px; font-size: 12px; color: var(--muted); }
     .cert-note strong { color: #f59e0b; }
 
-    /* ── Footer ──────────────────────────────────────────────── */
     footer {
-      border-top: 1px solid var(--border);
-      padding: 28px 0; text-align: center;
-      font-size: 13px; color: var(--muted);
+      border-top: 1px solid var(--border); padding: 28px 0;
+      text-align: center; font-size: 13px; color: var(--muted);
     }
     footer a { color: var(--muted); }
     footer a:hover { color: var(--text); }
   </style>
 </head>
 <body>
-
 <div class="container">
 
-  <!-- Nav -->
   <nav>
     <div class="logo">Chit<span>Now</span></div>
-    <a href="https://github.com/WiwaxiaRay/thenow">GitHub →</a>
+    <div class="nav-right">
+      <div class="lang-switcher">
+        <button class="lang-btn" data-lang="en">EN</button>
+        <button class="lang-btn" data-lang="zh">中文</button>
+        <button class="lang-btn" data-lang="ja">日本語</button>
+      </div>
+      <a href="https://github.com/WiwaxiaRay/thenow" data-i18n="nav_github">GitHub →</a>
+    </div>
   </nav>
 
-  <!-- Hero -->
   <section class="hero">
-    <h1>Approve AI agent actions<br>from your <em>Apple Watch</em></h1>
-    <p>When Claude Code or Codex wants to run a high-risk command, ChitNow pauses and waits for you to approve or deny — right on your wrist.</p>
+    <h1 data-i18n="hero_h1">Approve AI agent actions<br>from your <em>Apple Watch</em></h1>
+    <p data-i18n="hero_p">When Claude Code or Codex wants to run a high-risk command, ChitNow pauses and waits for you to approve or deny — right on your wrist.</p>
     <div class="badge-row">
       <span class="badge">macOS</span>
       <span class="badge">watchOS</span>
       <span class="badge">Claude Code</span>
       <span class="badge">Codex</span>
-      <span class="badge">Local-first</span>
+      <span class="badge" data-i18n="badge_local">Local-first</span>
     </div>
   </section>
 
-  <!-- How it works -->
-  <div class="section-label">How it works</div>
+  <div class="section-label" data-i18n="section_how">How it works</div>
   <div class="flow">
     <div class="flow-row">
       <div class="flow-icon">🤖</div>
       <div class="flow-text">
-        <strong>Agent runs a risky command</strong>
-        <span>rm -rf, git push --force, sudo, etc. — the hook intercepts before execution.</span>
+        <strong data-i18n="flow1_title">Agent runs a risky command</strong>
+        <span data-i18n="flow1_desc">rm -rf, git push --force, sudo, etc. — the hook intercepts before execution.</span>
       </div>
     </div>
     <div class="flow-row">
       <div class="flow-icon">⌚</div>
       <div class="flow-text">
-        <strong>Apple Watch vibrates</strong>
-        <span>A notification appears with the full command. Tap to see details inline.</span>
+        <strong data-i18n="flow2_title">Apple Watch vibrates</strong>
+        <span data-i18n="flow2_desc">A notification appears with the full command. Tap to see details inline.</span>
       </div>
     </div>
     <div class="flow-row">
       <div class="flow-icon">✅</div>
       <div class="flow-text">
-        <strong>You approve or deny</strong>
-        <span>One tap on the Watch. The agent proceeds or stops immediately. No unlock required.</span>
+        <strong data-i18n="flow3_title">You approve or deny</strong>
+        <span data-i18n="flow3_desc">One tap on the Watch. The agent proceeds or stops immediately. No unlock required.</span>
       </div>
     </div>
     <div class="flow-row">
       <div class="flow-icon">🔒</div>
       <div class="flow-text">
-        <strong>Fully local — nothing leaves your Mac</strong>
-        <span>The broker runs on your machine. APNs delivers the push; no cloud server stores your commands.</span>
+        <strong data-i18n="flow4_title">Fully local — nothing leaves your Mac</strong>
+        <span data-i18n="flow4_desc">The broker runs on your machine. APNs delivers the push; no cloud server stores your commands.</span>
       </div>
     </div>
   </div>
 
-  <!-- Setup steps -->
-  <div class="section-label">Setup</div>
+  <div class="section-label" data-i18n="section_setup">Setup</div>
   <div class="steps">
 
     <div class="step">
       <div class="step-num">1</div>
       <div>
-        <h3>Install the Mac Helper</h3>
-        <p>Clone the repo and start the broker. It runs as a background service and auto-starts on login.</p>
+        <h3 data-i18n="step1_title">Install the Mac Helper</h3>
+        <p data-i18n="step1_desc">Clone the repo and start the broker. It runs as a background service and auto-starts on login.</p>
         <p style="margin-top:10px">
           <code>git clone https://github.com/WiwaxiaRay/thenow</code><br>
           <span style="display:inline-block;margin-top:6px">
@@ -215,24 +197,24 @@
     <div class="step">
       <div class="step-num">2</div>
       <div>
-        <h3>Install the iPhone app</h3>
-        <p>Download ChitNow from TestFlight or install via Xcode. The Watch app installs automatically alongside it.</p>
+        <h3 data-i18n="step2_title">Install the iPhone app</h3>
+        <p data-i18n="step2_desc">Download ChitNow from TestFlight or install via Xcode. The Watch app installs automatically alongside it.</p>
       </div>
     </div>
 
     <div class="step">
       <div class="step-num">3</div>
       <div>
-        <h3>Pair your iPhone</h3>
+        <h3 data-i18n="step3_title">Pair your iPhone</h3>
         <p>
-          Open the pairing page on your Mac browser, then scan the QR code in the ChitNow iPhone app.<br>
+          <span data-i18n="step3_desc">Open the pairing page on your Mac browser, then scan the QR code in the ChitNow iPhone app.</span><br>
           <span style="display:inline-block;margin-top:8px">
-            <a href="https://localhost:8000/pair" target="_blank">https://localhost:8000/pair →</a>
+            <a href="https://localhost:8000/pair" target="_blank" data-i18n="step3_link">https://localhost:8000/pair →</a>
           </span>
         </p>
         <p style="margin-top:8px">
-          <strong style="color:#f59e0b; font-size:13px">Note:</strong>
-          <span style="font-size:13px"> Your browser will show a security warning for the self-signed certificate. Click <em>Advanced → Proceed to localhost</em> (Chrome) or <em>Show Details → visit this website</em> (Safari). This is expected — the certificate is generated locally on your Mac.</span>
+          <strong style="color:#f59e0b;font-size:13px" data-i18n="step3_warn_label">Note:</strong>
+          <span style="font-size:13px" data-i18n="step3_warn_desc"> Your browser will show a security warning for the self-signed certificate. Click <em>Advanced → Proceed to localhost</em> (Chrome) or <em>Show Details → visit this website</em> (Safari). This is expected — the certificate is generated locally on your Mac.</span>
         </p>
       </div>
     </div>
@@ -240,34 +222,169 @@
     <div class="step">
       <div class="step-num">4</div>
       <div>
-        <h3>Wire up the hook</h3>
-        <p>
-          <strong>Claude Code</strong> — the hook is configured automatically via <code>~/.claude/settings.json</code>.<br>
-          <strong>Codex</strong> — add the hook to <code>~/.codex/config.toml</code> and re-trust it in the Codex TUI.
-        </p>
-        <p style="margin-top:8px">See the <a href="https://github.com/WiwaxiaRay/thenow#hook-wiring">README</a> for exact config snippets.</p>
+        <h3 data-i18n="step4_title">Wire up the hook</h3>
+        <p data-i18n="step4_desc"><strong>Claude Code</strong> — the hook is configured automatically via <code>~/.claude/settings.json</code>.<br><strong>Codex</strong> — add the hook to <code>~/.codex/config.toml</code> and re-trust it in the Codex TUI.</p>
+        <p style="margin-top:8px" data-i18n="step4_readme">See the <a href="https://github.com/WiwaxiaRay/thenow#hook-wiring">README</a> for exact config snippets.</p>
       </div>
     </div>
 
   </div>
 
-  <!-- CTA -->
   <div class="cta-block">
-    <h2>Ready to pair?</h2>
-    <p>Make sure the Mac Helper is running, then open the pairing page.</p>
-    <a class="btn-primary" href="https://localhost:8000/pair" target="_blank">Open Pairing Page</a>
+    <h2 data-i18n="cta_title">Ready to pair?</h2>
+    <p data-i18n="cta_desc">Make sure the Mac Helper is running, then open the pairing page.</p>
+    <a class="btn-primary" href="https://localhost:8000/pair" target="_blank" data-i18n="cta_btn">Open Pairing Page</a>
     <div class="cert-note">
-      <strong>Browser will warn about the certificate</strong> — this is normal for a local self-signed cert.<br>
-      Click <em>Advanced → Proceed</em> to continue.
+      <strong data-i18n="cert_title">Browser will warn about the certificate</strong>
+      <span data-i18n="cert_desc"> — this is normal for a local self-signed cert.<br>Click <em>Advanced → Proceed</em> to continue.</span>
     </div>
   </div>
 
-  <!-- Footer -->
   <footer>
-    <a href="https://github.com/WiwaxiaRay/thenow">ChitNow on GitHub</a> &nbsp;·&nbsp;
-    Local-first · Open source
+    <a href="https://github.com/WiwaxiaRay/thenow" data-i18n="footer_link">ChitNow on GitHub</a>
+    &nbsp;·&nbsp;
+    <span data-i18n="footer_tag">Local-first · Open source</span>
   </footer>
 
 </div>
+<script>
+const i18n = {
+  en: {
+    nav_github:       "GitHub →",
+    hero_h1:          "Approve AI agent actions<br>from your <em>Apple Watch</em>",
+    hero_p:           "When Claude Code or Codex wants to run a high-risk command, ChitNow pauses and waits for you to approve or deny — right on your wrist.",
+    badge_local:      "Local-first",
+    section_how:      "How it works",
+    flow1_title:      "Agent runs a risky command",
+    flow1_desc:       "rm -rf, git push --force, sudo, etc. — the hook intercepts before execution.",
+    flow2_title:      "Apple Watch vibrates",
+    flow2_desc:       "A notification appears with the full command. Tap to see details inline.",
+    flow3_title:      "You approve or deny",
+    flow3_desc:       "One tap on the Watch. The agent proceeds or stops immediately. No unlock required.",
+    flow4_title:      "Fully local — nothing leaves your Mac",
+    flow4_desc:       "The broker runs on your machine. APNs delivers the push; no cloud server stores your commands.",
+    section_setup:    "Setup",
+    step1_title:      "Install the Mac Helper",
+    step1_desc:       "Clone the repo and start the broker. It runs as a background service and auto-starts on login.",
+    step2_title:      "Install the iPhone app",
+    step2_desc:       "Download ChitNow from TestFlight or install via Xcode. The Watch app installs automatically alongside it.",
+    step3_title:      "Pair your iPhone",
+    step3_desc:       "Open the pairing page on your Mac browser, then scan the QR code in the ChitNow iPhone app.",
+    step3_link:       "https://localhost:8000/pair →",
+    step3_warn_label: "Note:",
+    step3_warn_desc:  " Your browser will show a security warning for the self-signed certificate. Click <em>Advanced → Proceed to localhost</em> (Chrome) or <em>Show Details → visit this website</em> (Safari). This is expected — the certificate is generated locally on your Mac.",
+    step4_title:      "Wire up the hook",
+    step4_desc:       "<strong>Claude Code</strong> — the hook is configured automatically via <code>~/.claude/settings.json</code>.<br><strong>Codex</strong> — add the hook to <code>~/.codex/config.toml</code> and re-trust it in the Codex TUI.",
+    step4_readme:     "See the <a href=\"https://github.com/WiwaxiaRay/thenow#hook-wiring\">README</a> for exact config snippets.",
+    cta_title:        "Ready to pair?",
+    cta_desc:         "Make sure the Mac Helper is running, then open the pairing page.",
+    cta_btn:          "Open Pairing Page",
+    cert_title:       "Browser will warn about the certificate",
+    cert_desc:        " — this is normal for a local self-signed cert.<br>Click <em>Advanced → Proceed</em> to continue.",
+    footer_link:      "ChitNow on GitHub",
+    footer_tag:       "Local-first · Open source",
+  },
+  zh: {
+    nav_github:       "GitHub →",
+    hero_h1:          "从 <em>Apple Watch</em><br>审批 AI 代理操作",
+    hero_p:           "当 Claude Code 或 Codex 想执行高风险命令时，ChitNow 会暂停并等待你在手腕上批准或拒绝。",
+    badge_local:      "本地优先",
+    section_how:      "工作原理",
+    flow1_title:      "AI 代理执行高风险命令",
+    flow1_desc:       "rm -rf、git push --force、sudo 等 — Hook 在执行前拦截。",
+    flow2_title:      "Apple Watch 震动提醒",
+    flow2_desc:       "通知出现并显示完整命令，轻触即可查看详情。",
+    flow3_title:      "你批准或拒绝",
+    flow3_desc:       "在手表上轻点一下，代理立即继续或停止，无需解锁手机。",
+    flow4_title:      "完全本地 — 数据不离开你的 Mac",
+    flow4_desc:       "Broker 运行在你的机器上，APNs 负责推送，没有云服务器存储你的命令。",
+    section_setup:    "安装步骤",
+    step1_title:      "安装 Mac Helper",
+    step1_desc:       "克隆仓库并启动 Broker，它作为后台服务运行并随登录自启。",
+    step2_title:      "安装 iPhone 应用",
+    step2_desc:       "通过 TestFlight 或 Xcode 安装 ChitNow，Watch 应用会自动随之安装。",
+    step3_title:      "配对 iPhone",
+    step3_desc:       "在 Mac 浏览器中打开配对页面，然后在 ChitNow iPhone 应用中扫描二维码。",
+    step3_link:       "https://localhost:8000/pair →",
+    step3_warn_label: "注意：",
+    step3_warn_desc:  " 浏览器会对自签名证书显示安全警告。点击<em>高级 → 继续访问 localhost</em>（Chrome）或<em>显示详情 → 访问此网站</em>（Safari）。这是正常现象 — 证书在你的 Mac 本地生成。",
+    step4_title:      "接入 Hook",
+    step4_desc:       "<strong>Claude Code</strong> — Hook 通过 <code>~/.claude/settings.json</code> 自动配置。<br><strong>Codex</strong> — 在 <code>~/.codex/config.toml</code> 中添加 Hook，并在 Codex TUI 中重新信任。",
+    step4_readme:     "详细配置请参见 <a href=\"https://github.com/WiwaxiaRay/thenow#hook-wiring\">README</a>。",
+    cta_title:        "准备配对？",
+    cta_desc:         "确认 Mac Helper 正在运行，然后打开配对页面。",
+    cta_btn:          "打开配对页面",
+    cert_title:       "浏览器会提示证书警告",
+    cert_desc:        " — 这是本地自签名证书的正常现象。<br>点击<em>高级 → 继续访问</em>即可。",
+    footer_link:      "ChitNow on GitHub",
+    footer_tag:       "本地优先 · 开源",
+  },
+  ja: {
+    nav_github:       "GitHub →",
+    hero_h1:          "<em>Apple Watch</em> から<br>AI エージェントの操作を承認",
+    hero_p:           "Claude Code や Codex が高リスクのコマンドを実行しようとすると、ChitNow が一時停止し、手首での承認または拒否を待ちます。",
+    badge_local:      "ローカル優先",
+    section_how:      "仕組み",
+    flow1_title:      "エージェントが危険なコマンドを実行",
+    flow1_desc:       "rm -rf、git push --force、sudo など — フックが実行前にインターセプトします。",
+    flow2_title:      "Apple Watch が振動",
+    flow2_desc:       "コマンド全文を含む通知が表示されます。タップして詳細を確認。",
+    flow3_title:      "承認または拒否",
+    flow3_desc:       "Watch を一度タップするだけ。エージェントはすぐに続行または停止します。ロック解除不要。",
+    flow4_title:      "完全ローカル — データは Mac を離れない",
+    flow4_desc:       "ブローカーはあなたのマシンで動作します。APNs がプッシュを配信し、クラウドサーバーはコマンドを保存しません。",
+    section_setup:    "セットアップ",
+    step1_title:      "Mac Helper をインストール",
+    step1_desc:       "リポジトリをクローンしてブローカーを起動します。ログイン時に自動起動するバックグラウンドサービスとして動作します。",
+    step2_title:      "iPhone アプリをインストール",
+    step2_desc:       "TestFlight または Xcode から ChitNow をインストールします。Watch アプリは自動的にインストールされます。",
+    step3_title:      "iPhone をペアリング",
+    step3_desc:       "Mac のブラウザでペアリングページを開き、ChitNow iPhone アプリで QR コードをスキャンします。",
+    step3_link:       "https://localhost:8000/pair →",
+    step3_warn_label: "注意：",
+    step3_warn_desc:  " ブラウザは自己署名証明書に対してセキュリティ警告を表示します。<em>詳細設定 → localhost にアクセスする</em>（Chrome）または<em>詳細を表示 → このウェブサイトを訪問</em>（Safari）をクリックしてください。これは正常です — 証明書はあなたの Mac でローカルに生成されています。",
+    step4_title:      "フックを設定",
+    step4_desc:       "<strong>Claude Code</strong> — フックは <code>~/.claude/settings.json</code> で自動設定されます。<br><strong>Codex</strong> — <code>~/.codex/config.toml</code> にフックを追加し、Codex TUI で再信頼してください。",
+    step4_readme:     "詳細な設定スニペットは <a href=\"https://github.com/WiwaxiaRay/thenow#hook-wiring\">README</a> を参照してください。",
+    cta_title:        "ペアリングの準備ができましたか？",
+    cta_desc:         "Mac Helper が動作していることを確認してから、ペアリングページを開いてください。",
+    cta_btn:          "ペアリングページを開く",
+    cert_title:       "ブラウザが証明書の警告を表示します",
+    cert_desc:        " — ローカルの自己署名証明書では正常です。<br><em>詳細設定 → 続行</em> をクリックしてください。",
+    footer_link:      "ChitNow on GitHub",
+    footer_tag:       "ローカル優先 · オープンソース",
+  }
+};
+
+const LANG_META = { en: 'en', zh: 'zh-CN', ja: 'ja' };
+const TITLES = {
+  en: 'ChitNow — AI Agent Approval for Apple Watch',
+  zh: 'ChitNow — Apple Watch 上的 AI 指令审批',
+  ja: 'ChitNow — Apple Watch で AI エージェントを承認'
+};
+
+function setLang(lang) {
+  if (!i18n[lang]) return;
+  document.querySelectorAll('[data-i18n]').forEach(el => {
+    const v = i18n[lang][el.dataset.i18n];
+    if (v !== undefined) el.innerHTML = v;
+  });
+  document.documentElement.lang = LANG_META[lang];
+  document.title = TITLES[lang];
+  localStorage.setItem('chitnow-lang', lang);
+  document.querySelectorAll('.lang-btn').forEach(b => {
+    b.classList.toggle('active', b.dataset.lang === lang);
+  });
+}
+
+document.querySelectorAll('.lang-btn').forEach(b => {
+  b.addEventListener('click', () => setLang(b.dataset.lang));
+});
+
+const saved   = localStorage.getItem('chitnow-lang');
+const browser = navigator.language.startsWith('zh') ? 'zh'
+              : navigator.language.startsWith('ja') ? 'ja' : 'en';
+setLang(saved || browser);
+</script>
 </body>
 </html>
