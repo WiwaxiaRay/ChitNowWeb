@@ -329,8 +329,8 @@
     <div class="step">
       <div class="step-gutter"><div class="step-num">1</div><div class="step-vline"></div></div>
       <div>
-        <h3 data-i18n="step1_title">Install codexbar (optional)</h3>
-        <p data-i18n="step1_desc">Approval works without codexbar. Install <a href="https://github.com/steipete/codexbar">codexbar</a> and keep it running only if you want token usage, daily cost, and quota rings on the Watch.</p>
+        <h3 data-i18n="step1_title">Install codexbar</h3>
+        <p data-i18n="step1_desc">Install <a href="https://github.com/steipete/codexbar">codexbar</a> and keep it running on your Mac. ChitNow uses its local data to show token usage, daily cost, and quota rings on the Watch.</p>
       </div>
     </div>
 
@@ -338,7 +338,7 @@
       <div class="step-gutter"><div class="step-num">2</div><div class="step-vline"></div></div>
       <div>
         <h3 data-i18n="step2_title">Install the Mac Helper</h3>
-        <p data-i18n="step2_desc">Run the installer — it sets up the broker, wires the Claude Code hook, registers auto-start, and prints the secure pairing URL plus the exact Codex configuration for your Mac.</p>
+        <p data-i18n="step2_desc">Run the installer — it sets up the broker, wires the Claude Code hook, registers auto-start, prints the exact Codex configuration for your Mac, and automatically opens the secure pairing page in your browser.</p>
         <div class="cmd-block">
           <div class="cmd-row"><span class="cmd-ps">$</span><span class="cmd-txt">git clone https://github.com/WiwaxiaRay/thenow &amp;&amp; cd thenow</span></div>
           <div class="cmd-row"><span class="cmd-ps">$</span><span class="cmd-txt">bash install.sh</span></div>
@@ -350,11 +350,8 @@
     <div class="step">
       <div class="step-gutter"><div class="step-num">3</div><div class="step-vline"></div></div>
       <div>
-        <h3 data-i18n="step3_title">Install and pair the iPhone app</h3>
-        <p data-i18n="step3_desc">Install the ChitNow iPhone app via Xcode, then open the private setup-token URL printed by <code>install.sh</code> and scan its one-time QR code. A plain <code>/pair</code> request is intentionally rejected.</p>
-        <div class="cmd-block">
-          <div class="cmd-row"><span class="cmd-ps">$</span><span class="cmd-txt">open "https://localhost:8000/pair?setup_token=&lt;printed-by-install.sh&gt;"</span></div>
-        </div>
+        <h3 data-i18n="step3_title">Pair the iPhone app</h3>
+        <p data-i18n="step3_desc">The pairing page is already open in your browser. Open ChitNow on your iPhone and scan the one-time QR code.</p>
         <p style="margin-top:10px;font-size:12px;color:var(--muted)">
           <strong style="color:var(--amber)" data-i18n="step3_warn_label">Note:</strong>
           <span data-i18n="step3_warn_desc"> Your browser will show a certificate warning — this is expected because the cert is generated locally on your Mac. Keep the setup-token URL private, and use the URL printed by your own installer.</span>
@@ -402,7 +399,7 @@
   <div class="cta-block">
     <div class="cta-inner">
       <h2 data-i18n="cta_title">Ready to pair?</h2>
-      <p data-i18n="cta_desc">Run the installer, then open the private setup-token pairing URL it prints.</p>
+      <p data-i18n="cta_desc">Run the installer. It opens the private pairing page automatically.</p>
       <a class="btn-primary" href="https://github.com/WiwaxiaRay/thenow#install" target="_blank" data-i18n="cta_btn">bash install.sh</a>
       <div class="cert-note">
         <strong data-i18n="cert_title">Browser will warn about the certificate</strong><span data-i18n="cert_desc"> — this is normal for a local self-signed cert.<br>Click <em>Advanced → Proceed</em> to continue.</span>
@@ -484,13 +481,13 @@ const i18n = {
     flow4_title:"Command data stays on your LAN",
     flow4_desc:"Relay and APNs receive only a generic approval event. Commands, broker URLs, API keys, and decisions stay between your devices and Mac broker.",
     section_setup:"Setup",
-    step1_title:"Install codexbar (optional)",
-    step1_desc:"Approval works without codexbar. Install <a href=\"https://github.com/steipete/codexbar\">codexbar</a> and keep it running only if you want token usage, daily cost, and quota rings on the Watch.",
+    step1_title:"Install codexbar",
+    step1_desc:"Install <a href=\"https://github.com/steipete/codexbar\">codexbar</a> and keep it running on your Mac. ChitNow uses its local data to show token usage, daily cost, and quota rings on the Watch.",
     step2_title:"Install the Mac Helper",
-    step2_desc:"Run the installer — it sets up the broker, wires the Claude Code hook, registers auto-start, and prints the secure pairing URL plus the exact Codex configuration for your Mac.",
+    step2_desc:"Run the installer — it sets up the broker, wires the Claude Code hook, registers auto-start, prints the exact Codex configuration for your Mac, and automatically opens the secure pairing page in your browser.",
     step2_req:"Requires Python 3.11+. For generic push wake-ups, deploy the optional Cloudflare relay first, then run <code>CHITNOW_RELAY_URL=https://your-worker.workers.dev bash install.sh</code>.",
-    step3_title:"Install and pair the iPhone app",
-    step3_desc:"Install the ChitNow iPhone app via Xcode, then open the private setup-token URL printed by <code>install.sh</code> and scan its one-time QR code. A plain <code>/pair</code> request is intentionally rejected.",
+    step3_title:"Pair the iPhone app",
+    step3_desc:"The pairing page is already open in your browser. Open ChitNow on your iPhone and scan the one-time QR code.",
     step3_warn_label:"Note:",
     step3_warn_desc:" Your browser will show a certificate warning — this is expected because the cert is generated locally on your Mac. Keep the setup-token URL private, and use the URL printed by your own installer.",
     step4_title:"Wire the Codex hook",
@@ -501,7 +498,7 @@ const i18n = {
     note_privacy:"The relay and Apple APNs receive only a generic approval-pending event. Commands, summaries, broker URLs, API keys, fingerprints, and approval decisions never pass through the relay.",
     note_relay_security:"Relay requests use per-installation HMAC credentials, timestamps, and nonce replay protection. Installation credentials can be rotated or revoked.",
     cta_title:"Ready to pair?",
-    cta_desc:"Run the installer, then open the private setup-token pairing URL it prints.",
+    cta_desc:"Run the installer. It opens the private pairing page automatically.",
     cta_btn:"bash install.sh",
     cert_title:"Browser will warn about the certificate",
     cert_desc:" — this is normal for a local self-signed cert.<br>Click <em>Advanced → Proceed</em> to continue.",
@@ -524,13 +521,13 @@ const i18n = {
     flow4_title:"命令数据留在你的局域网",
     flow4_desc:"Relay 和 APNs 只接收通用审批事件。命令、Broker URL、API Key 和审批决定仅在你的设备与 Mac Broker 之间传输。",
     section_setup:"安装步骤",
-    step1_title:"安装 codexbar（可选）",
-    step1_desc:"审批功能不依赖 codexbar。仅当你希望在 Watch 上显示 Token 用量、每日费用和配额环时，才需要安装并保持 <a href=\"https://github.com/steipete/codexbar\">codexbar</a> 运行。",
+    step1_title:"安装 codexbar",
+    step1_desc:"安装 <a href=\"https://github.com/steipete/codexbar\">codexbar</a> 并保持它在 Mac 上运行。ChitNow 使用它的本地数据在 Watch 上显示 Token 用量、每日费用和配额环。",
     step2_title:"安装 Mac Helper",
-    step2_desc:"运行安装脚本 — 它会配置 Broker、接入 Claude Code Hook、设置开机自启，并打印安全配对 URL 和适用于当前 Mac 的准确 Codex 配置。",
+    step2_desc:"运行安装脚本 — 它会配置 Broker、接入 Claude Code Hook、设置开机自启、打印适用于当前 Mac 的准确 Codex 配置，并自动在浏览器中打开安全配对页面。",
     step2_req:"需要 Python 3.11+。如需通用推送唤醒，请先部署可选的 Cloudflare Relay，再运行 <code>CHITNOW_RELAY_URL=https://your-worker.workers.dev bash install.sh</code>。",
-    step3_title:"安装并配对 iPhone App",
-    step3_desc:"先通过 Xcode 安装 ChitNow iPhone App，再打开 <code>install.sh</code> 打印的私密 setup-token URL，并扫描其中的一次性二维码。直接访问 <code>/pair</code> 会被安全机制拒绝。",
+    step3_title:"配对 iPhone App",
+    step3_desc:"浏览器已打开配对页面。在 iPhone 上打开 ChitNow，扫描其中的一次性二维码。",
     step3_warn_label:"注意：",
     step3_warn_desc:" 浏览器会显示证书警告 — 这是正常现象，因为证书由你的 Mac 本地生成。请勿分享 setup-token URL，并只使用你自己的安装脚本打印的链接。",
     step4_title:"接入 Codex Hook",
@@ -541,7 +538,7 @@ const i18n = {
     note_privacy:"Relay 和 Apple APNs 只接收通用的待审批事件。命令、摘要、Broker URL、API Key、证书指纹和审批决定绝不会经过 Relay。",
     note_relay_security:"Relay 请求使用每个安装实例独立的 HMAC 凭据、时间戳和 nonce 防重放保护，安装凭据支持轮换或撤销。",
     cta_title:"准备配对？",
-    cta_desc:"运行安装脚本，然后打开它打印的私密 setup-token 配对 URL。",
+    cta_desc:"运行安装脚本，它会自动打开私密配对页面。",
     cta_btn:"bash install.sh",
     cert_title:"浏览器会提示证书警告",
     cert_desc:" — 这是本地自签名证书的正常现象。<br>点击<em>高级 → 继续访问</em>即可。",
@@ -564,13 +561,13 @@ const i18n = {
     flow4_title:"コマンドデータは LAN 内に保持",
     flow4_desc:"Relay と APNs が受け取るのは汎用の承認イベントだけです。コマンド、ブローカー URL、API キー、判断はデバイスと Mac ブローカー間に留まります。",
     section_setup:"セットアップ",
-    step1_title:"codexbar をインストール（オプション）",
-    step1_desc:"承認機能は codexbar なしでも動作します。Watch にトークン使用量、日次コスト、クォータリングを表示したい場合のみ、<a href=\"https://github.com/steipete/codexbar\">codexbar</a> をインストールして起動してください。",
+    step1_title:"codexbar をインストール",
+    step1_desc:"<a href=\"https://github.com/steipete/codexbar\">codexbar</a> をインストールし、Mac で起動したままにしてください。ChitNow はそのローカルデータを使って、Watch にトークン使用量、日次コスト、クォータリングを表示します。",
     step2_title:"Mac Helper をインストール",
-    step2_desc:"インストーラーを実行すると、ブローカー、Claude Code フック、自動起動を設定し、安全なペアリング URL とこの Mac 用の正確な Codex 設定を表示します。",
+    step2_desc:"インストーラーを実行すると、ブローカー、Claude Code フック、自動起動を設定し、この Mac 用の正確な Codex 設定を表示して、安全なペアリングページをブラウザで自動的に開きます。",
     step2_req:"Python 3.11+ が必要です。汎用プッシュによるウェイクアップを使う場合は、オプションの Cloudflare Relay を先にデプロイし、<code>CHITNOW_RELAY_URL=https://your-worker.workers.dev bash install.sh</code> を実行します。",
-    step3_title:"iPhone アプリをインストールしてペアリング",
-    step3_desc:"Xcode から ChitNow iPhone アプリをインストールし、<code>install.sh</code> が表示した非公開の setup-token URL を開いて、一回限りの QR コードをスキャンします。単純な <code>/pair</code> リクエストは意図的に拒否されます。",
+    step3_title:"iPhone アプリをペアリング",
+    step3_desc:"ブラウザにはペアリングページがすでに開いています。iPhone で ChitNow を開き、一回限りの QR コードをスキャンしてください。",
     step3_warn_label:"注意：",
     step3_warn_desc:" 証明書は Mac でローカル生成されるため、ブラウザの証明書警告は正常です。setup-token URL は共有せず、自分のインストーラーが表示したリンクだけを使用してください。",
     step4_title:"Codex フックを設定",
@@ -581,7 +578,7 @@ const i18n = {
     note_privacy:"Relay と Apple APNs が受け取るのは汎用の承認待ちイベントだけです。コマンド、サマリー、ブローカー URL、API キー、証明書フィンガープリント、承認判断が Relay を経由することはありません。",
     note_relay_security:"Relay リクエストはインストールごとの HMAC 認証情報、タイムスタンプ、nonce によるリプレイ保護を使用し、認証情報はローテーションまたは失効できます。",
     cta_title:"ペアリングの準備ができましたか？",
-    cta_desc:"インストーラーを実行し、表示された非公開の setup-token ペアリング URL を開いてください。",
+    cta_desc:"インストーラーを実行すると、非公開のペアリングページが自動的に開きます。",
     cta_btn:"bash install.sh",
     cert_title:"ブラウザが証明書の警告を表示します",
     cert_desc:" — ローカルの自己署名証明書では正常です。<br><em>詳細設定 → 続行</em> をクリックしてください。",
