@@ -338,7 +338,7 @@
       <div class="step-gutter"><div class="step-num">2</div><div class="step-vline"></div></div>
       <div>
         <h3 data-i18n="step2_title">Install the Mac Helper</h3>
-        <p data-i18n="step2_desc">Run the installer — it sets up the broker, wires the Claude Code hook, registers auto-start, prints the exact Codex configuration for your Mac, and automatically opens the secure pairing page in your browser.</p>
+        <p data-i18n="step2_desc">Run the installer — it sets up the broker, wires the Claude Code and Codex hooks, installs the recommended Codex high-risk rules, registers auto-start, and automatically opens the secure pairing page.</p>
         <div class="cmd-block">
           <div class="cmd-row"><span class="cmd-ps">$</span><span class="cmd-txt">git clone https://github.com/WiwaxiaRay/thenow &amp;&amp; cd thenow</span></div>
           <div class="cmd-row"><span class="cmd-ps">$</span><span class="cmd-txt">bash install.sh</span></div>
@@ -362,13 +362,9 @@
     <div class="step">
       <div class="step-gutter"><div class="step-num">4</div></div>
       <div>
-        <h3 data-i18n="step4_title">Wire the Codex hook <span class="opt-badge">Codex only</span></h3>
-        <p data-i18n="step4_desc">Claude Code is wired automatically. For Codex, paste the exact absolute-path snippet printed by <code>install.sh</code> into <code>~/.codex/config.toml</code>, then re-trust it in the Codex TUI (<code>/hooks</code>).</p>
-        <div class="cmd-block" style="margin-top:12px">
-          <div class="cmd-row"><span class="cmd-ps" style="color:#505050">#</span><span class="cmd-txt" style="color:#606060">~/.codex/config.toml — install.sh prints the real absolute paths</span></div>
-          <div class="cmd-row"><span class="cmd-txt" style="color:#79d9a8">[[hooks.PermissionRequest]]<br>matcher = "^Bash$"<br>[[hooks.PermissionRequest.hooks]]<br>type = "command"<br>command = "env THENOW_CONFIG_PATH=/ABSOLUTE/PATH/thenow/broker/config.json /ABSOLUTE/PATH/thenow/broker/.venv/bin/python ~/.claude/scripts/thenow_hook.py"<br>timeout = 190<br>statusMessage = "Waiting for Apple Watch approval..."<br><br>[features]<br>hooks = true</span></div>
-        </div>
-        <p style="margin-top:10px;font-size:12px;color:var(--muted)" data-i18n="step4_rules">ChitNow receives only commands that Codex routes into PermissionRequest. Merge <code>codex/default.rules.example</code> for recommended high-risk command coverage. If the Watch does not respond within 15 seconds, Codex falls back to its native approval UI.</p>
+        <h3 data-i18n="step4_title">Trust the Codex hook <span class="opt-badge">Codex only</span></h3>
+        <p data-i18n="step4_desc">The installer has already configured Codex. Open the Codex TUI, run <code>/hooks</code>, and trust the ChitNow hook. Claude Code-only users can skip this step.</p>
+        <p style="margin-top:10px;font-size:12px;color:var(--muted)" data-i18n="step4_rules">This one-time trust confirmation is a Codex security boundary and is intentionally not automated. If the Watch does not respond within 15 seconds, Codex falls back to its native approval UI.</p>
       </div>
     </div>
 
@@ -484,15 +480,15 @@ const i18n = {
     step1_title:"Install codexbar",
     step1_desc:"Install <a href=\"https://github.com/steipete/codexbar\">codexbar</a> and keep it running on your Mac. ChitNow uses its local data to show token usage, daily cost, and quota rings on the Watch.",
     step2_title:"Install the Mac Helper",
-    step2_desc:"Run the installer — it sets up the broker, wires the Claude Code hook, registers auto-start, prints the exact Codex configuration for your Mac, and automatically opens the secure pairing page in your browser.",
+    step2_desc:"Run the installer — it sets up the broker, wires the Claude Code and Codex hooks, installs the recommended Codex high-risk rules, registers auto-start, and automatically opens the secure pairing page.",
     step2_req:"Requires Python 3.11+. For generic push wake-ups, deploy the optional Cloudflare relay first, then run <code>CHITNOW_RELAY_URL=https://your-worker.workers.dev bash install.sh</code>.",
     step3_title:"Pair the iPhone app",
     step3_desc:"The pairing page is already open in your browser. Open ChitNow on your iPhone and scan the one-time QR code.",
     step3_warn_label:"Note:",
     step3_warn_desc:" Your browser will show a certificate warning — this is expected because the cert is generated locally on your Mac. Keep the setup-token URL private, and use the URL printed by your own installer.",
-    step4_title:"Wire the Codex hook",
-    step4_desc:"Claude Code is wired automatically. For Codex, paste the exact absolute-path snippet printed by <code>install.sh</code> into <code>~/.codex/config.toml</code>, then re-trust it in the Codex TUI (<code>/hooks</code>).",
-    step4_rules:"ChitNow receives only commands that Codex routes into PermissionRequest. Merge <code>codex/default.rules.example</code> for recommended high-risk command coverage. If the Watch does not respond within 15 seconds, Codex falls back to its native approval UI.",
+    step4_title:"Trust the Codex hook",
+    step4_desc:"The installer has already configured Codex. Open the Codex TUI, run <code>/hooks</code>, and trust the ChitNow hook. Claude Code-only users can skip this step.",
+    step4_rules:"This one-time trust confirmation is a Codex security boundary and is intentionally not automated. If the Watch does not respond within 15 seconds, Codex falls back to its native approval UI.",
     note_lan:"LAN only. Mac, iPhone, and Watch must be on the same Wi-Fi. Switching networks or using a VPN may require re-pairing.",
     note_apns:"The optional Cloudflare relay sends a generic wake-up push to the iPhone. Without the relay, foreground polling remains available, but the Watch app must be open for reliable approval delivery.",
     note_privacy:"The relay and Apple APNs receive only a generic approval-pending event. Commands, summaries, broker URLs, API keys, fingerprints, and approval decisions never pass through the relay.",
@@ -524,15 +520,15 @@ const i18n = {
     step1_title:"安装 codexbar",
     step1_desc:"安装 <a href=\"https://github.com/steipete/codexbar\">codexbar</a> 并保持它在 Mac 上运行。ChitNow 使用它的本地数据在 Watch 上显示 Token 用量、每日费用和配额环。",
     step2_title:"安装 Mac Helper",
-    step2_desc:"运行安装脚本 — 它会配置 Broker、接入 Claude Code Hook、设置开机自启、打印适用于当前 Mac 的准确 Codex 配置，并自动在浏览器中打开安全配对页面。",
+    step2_desc:"运行安装脚本 — 它会配置 Broker、接入 Claude Code 和 Codex Hook、安装推荐的 Codex 高危命令规则、设置开机自启，并自动打开安全配对页面。",
     step2_req:"需要 Python 3.11+。如需通用推送唤醒，请先部署可选的 Cloudflare Relay，再运行 <code>CHITNOW_RELAY_URL=https://your-worker.workers.dev bash install.sh</code>。",
     step3_title:"配对 iPhone App",
     step3_desc:"浏览器已打开配对页面。在 iPhone 上打开 ChitNow，扫描其中的一次性二维码。",
     step3_warn_label:"注意：",
     step3_warn_desc:" 浏览器会显示证书警告 — 这是正常现象，因为证书由你的 Mac 本地生成。请勿分享 setup-token URL，并只使用你自己的安装脚本打印的链接。",
-    step4_title:"接入 Codex Hook",
-    step4_desc:"Claude Code 会自动接入。使用 Codex 时，请将 <code>install.sh</code> 打印的准确绝对路径配置粘贴到 <code>~/.codex/config.toml</code>，然后在 Codex TUI（<code>/hooks</code>）中重新信任。",
-    step4_rules:"ChitNow 只能收到 Codex 路由至 PermissionRequest 的命令。建议合并 <code>codex/default.rules.example</code> 以覆盖常见高风险命令。如果 Watch 在 15 秒内未响应，Codex 会回退到原生审批界面。",
+    step4_title:"信任 Codex Hook",
+    step4_desc:"安装脚本已经完成 Codex 配置。打开 Codex TUI，执行 <code>/hooks</code> 并信任 ChitNow Hook。仅使用 Claude Code 的用户可以跳过此步骤。",
+    step4_rules:"这次信任确认是 Codex 的安全边界，因此不会被自动绕过。如果 Watch 在 15 秒内未响应，Codex 会回退到原生审批界面。",
     note_lan:"仅限局域网。Mac、iPhone 和 Watch 必须在同一 Wi-Fi 网络。切换网络或使用 VPN 后可能需要重新配对。",
     note_apns:"可选的 Cloudflare Relay 会向 iPhone 发送通用唤醒推送。未配置 Relay 时仍可使用前台轮询，但 Watch App 必须保持打开才能可靠接收审批。",
     note_privacy:"Relay 和 Apple APNs 只接收通用的待审批事件。命令、摘要、Broker URL、API Key、证书指纹和审批决定绝不会经过 Relay。",
@@ -564,15 +560,15 @@ const i18n = {
     step1_title:"codexbar をインストール",
     step1_desc:"<a href=\"https://github.com/steipete/codexbar\">codexbar</a> をインストールし、Mac で起動したままにしてください。ChitNow はそのローカルデータを使って、Watch にトークン使用量、日次コスト、クォータリングを表示します。",
     step2_title:"Mac Helper をインストール",
-    step2_desc:"インストーラーを実行すると、ブローカー、Claude Code フック、自動起動を設定し、この Mac 用の正確な Codex 設定を表示して、安全なペアリングページをブラウザで自動的に開きます。",
+    step2_desc:"インストーラーを実行すると、ブローカー、Claude Code と Codex のフック、推奨される Codex 高リスクルール、自動起動を設定し、安全なペアリングページを自動的に開きます。",
     step2_req:"Python 3.11+ が必要です。汎用プッシュによるウェイクアップを使う場合は、オプションの Cloudflare Relay を先にデプロイし、<code>CHITNOW_RELAY_URL=https://your-worker.workers.dev bash install.sh</code> を実行します。",
     step3_title:"iPhone アプリをペアリング",
     step3_desc:"ブラウザにはペアリングページがすでに開いています。iPhone で ChitNow を開き、一回限りの QR コードをスキャンしてください。",
     step3_warn_label:"注意：",
     step3_warn_desc:" 証明書は Mac でローカル生成されるため、ブラウザの証明書警告は正常です。setup-token URL は共有せず、自分のインストーラーが表示したリンクだけを使用してください。",
-    step4_title:"Codex フックを設定",
-    step4_desc:"Claude Code は自動設定されます。Codex では <code>install.sh</code> が表示した絶対パス入りの正確な設定を <code>~/.codex/config.toml</code> に貼り付け、Codex TUI (<code>/hooks</code>) で再信頼してください。",
-    step4_rules:"ChitNow が受け取れるのは、Codex が PermissionRequest に送ったコマンドだけです。推奨される高リスクコマンドを対象にするには <code>codex/default.rules.example</code> をマージしてください。Watch が 15 秒以内に応答しない場合、Codex 標準の承認 UI にフォールバックします。",
+    step4_title:"Codex フックを信頼",
+    step4_desc:"インストーラーが Codex の設定を完了しています。Codex TUI を開き、<code>/hooks</code> を実行して ChitNow フックを信頼してください。Claude Code だけを使う場合はこの手順を省略できます。",
+    step4_rules:"この一度限りの信頼確認は Codex のセキュリティ境界であるため、自動化されません。Watch が 15 秒以内に応答しない場合、Codex 標準の承認 UI にフォールバックします。",
     note_lan:"LAN のみ対応。Mac・iPhone・Watch は同じ Wi-Fi ネットワーク上にある必要があります。ネットワーク切り替えや VPN 使用後は再ペアリングが必要になる場合があります。",
     note_apns:"オプションの Cloudflare Relay は iPhone に汎用ウェイクアップ通知を送ります。Relay なしでもフォアグラウンドポーリングは使えますが、確実に承認を受け取るには Watch アプリを開いておく必要があります。",
     note_privacy:"Relay と Apple APNs が受け取るのは汎用の承認待ちイベントだけです。コマンド、サマリー、ブローカー URL、API キー、証明書フィンガープリント、承認判断が Relay を経由することはありません。",
